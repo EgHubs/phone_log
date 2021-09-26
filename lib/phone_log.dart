@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 /// Provide methods to access and fetch the phone log.
 class PhoneLog {
-  final MethodChannel _channel;
+  final MethodChannel? _channel;
 
   static final PhoneLog _instance = new PhoneLog.private(
       const MethodChannel('github.com/jiajiabingcheng/phone_log'));
@@ -13,18 +13,18 @@ class PhoneLog {
   factory PhoneLog() => _instance;
 
   @visibleForTesting
-  PhoneLog.private(MethodChannel platformChannel) : _channel = platformChannel;
+  PhoneLog.private(MethodChannel? platformChannel) : _channel = platformChannel;
 
   /// Check a [permission] and return a [Future] with the result
-  Future<bool> checkPermission() async {
-    final bool isGranted = await _channel.invokeMethod("checkPermission", null);
+  Future<bool?> checkPermission() async {
+    final bool? isGranted = await _channel!.invokeMethod("checkPermission", null);
     return isGranted;
   }
 
   /// Request a [permission] and return a [Future] with the result
-  Future<bool> requestPermission() async {
-    final bool isGranted =
-        await _channel.invokeMethod("requestPermission", null);
+  Future<bool?> requestPermission() async {
+    final bool? isGranted =
+        await _channel!.invokeMethod("requestPermission", null);
     return isGranted;
   }
 
@@ -32,13 +32,13 @@ class PhoneLog {
   ///
   ///The unit of [startDate] is the Milliseconds of date.
   ///The unit of [duration] is second.
-  Future<Iterable<CallRecord>> getPhoneLogs({
-    Int64 startDate,
-    Int64 duration,
+  Future<Iterable<CallRecord>?> getPhoneLogs({
+    Int64? startDate,
+    Int64? duration,
   }) async {
     var _startDate = startDate?.toString();
     var _duration = duration?.toString();
-    Iterable records = await _channel.invokeMethod('getPhoneLogs', {
+    Iterable? records = await _channel!.invokeMethod('getPhoneLogs', {
       "startDate": _startDate,
       "duration": _duration,
     });
@@ -56,12 +56,12 @@ class CallRecord {
     this.duration,
   });
 
-  String formattedNumber;
-  String number;
-  String callType;
-  String name;
-  DateTime date;
-  int duration;
+  String? formattedNumber;
+  String? number;
+  String? callType;
+  String? name;
+  DateTime? date;
+  int? duration;
 
   CallRecord.fromMap(Map m) {
     formattedNumber = m['formattedNumber'];

@@ -7,23 +7,23 @@ import 'package:mockito/mockito.dart';
 import 'package:phone_log/phone_log.dart';
 
 void main() {
-  String invokedMethod;
+  String? invokedMethod;
   dynamic arguments;
-  MockPlatformChannel mockChannel;
-  MockPlatformChannel mockChannelForGetLogs;
+  MockPlatformChannel? mockChannel;
+  MockPlatformChannel? mockChannelForGetLogs;
 
   setUp(() {
     mockChannel = new MockPlatformChannel();
     mockChannelForGetLogs = new MockPlatformChannel();
 
-    when(mockChannel.invokeMethod(any, any))
+    when(mockChannel!.invokeMethod(any!, any))
         .thenAnswer((Invocation invocation) {
       invokedMethod = invocation.positionalArguments[0];
       arguments = invocation.positionalArguments[1];
       return;
-    });
+    } as Future<dynamic> Function(Invocation));
 
-    when(mockChannelForGetLogs.invokeMethod('getPhoneLogs', any))
+    when(mockChannelForGetLogs!.invokeMethod('getPhoneLogs', any))
         .thenAnswer((_) => new Future(() => [
               {
                 'formattedNumber': '123 123 1234',
@@ -44,8 +44,8 @@ void main() {
     test('fetch phone log', () async {
       var phoneLog = new PhoneLog.private(mockChannelForGetLogs);
 
-      var records = await phoneLog.getPhoneLogs(
-          startDate: new Int64(123456789), duration: new Int64(12));
+      var records = await (phoneLog.getPhoneLogs(
+          startDate: new Int64(123456789), duration: new Int64(12)) as FutureOr<Iterable<CallRecord>>);
 
       print(records);
       var record = records.first;
