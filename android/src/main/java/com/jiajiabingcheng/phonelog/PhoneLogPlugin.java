@@ -140,7 +140,7 @@ public class PhoneLogPlugin implements MethodCallHandler, PluginRegistry.Request
             record.name = cursor.getString(names);
             record.date = cursor.getLong(dates);
             record.duration = cursor.getLong(durations);
-            record.missedReason = cursor.getLong(missedReason);
+            record.missedReason = cursor.getString(missedReason);
 
             records.add(record.toMap());
         }
