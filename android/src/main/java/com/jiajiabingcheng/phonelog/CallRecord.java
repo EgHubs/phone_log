@@ -10,7 +10,6 @@ class CallRecord {
     String number;
     String callType;
     String name;
-    String missedReason;
     long date;
     long duration;
 
@@ -23,7 +22,6 @@ class CallRecord {
         recordMap.put("name", name);
         recordMap.put("date", date);
         recordMap.put("duration", duration);
-        recordMap.put("missedReason", missedReason);
 
         return recordMap;
     }

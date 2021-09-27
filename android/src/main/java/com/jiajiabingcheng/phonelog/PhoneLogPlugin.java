@@ -128,7 +128,6 @@ public class PhoneLogPlugin implements MethodCallHandler, PluginRegistry.Request
         int names = cursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
         int dates = cursor.getColumnIndex(CallLog.Calls.DATE);
         int durations = cursor.getColumnIndex(CallLog.Calls.DURATION);
-        int missedReason = cursor.getColumnIndex(CallLog.Calls.MISSED_REASON);
 
         // Looping on CallLogs
         while (cursor.moveToNext()) {
@@ -140,7 +139,6 @@ public class PhoneLogPlugin implements MethodCallHandler, PluginRegistry.Request
             record.name = cursor.getString(names);
             record.date = cursor.getLong(dates);
             record.duration = cursor.getLong(durations);
-            record.missedReason = cursor.getString(missedReason);
 
             records.add(record.toMap());
         }
@@ -161,16 +159,6 @@ public class PhoneLogPlugin implements MethodCallHandler, PluginRegistry.Request
                 return "REJECTED_TYPE";
             case CallLog.Calls.BLOCKED_TYPE:
                 return "BLOCKED_TYPE";
-            case CallLog.Calls.USER_MISSED_DND_MODE: //don't disturb mode
-                return "USER_MISSED_DND_MODE";
-            case CallLog.Calls.USER_MISSED_LOW_RING_VOLUME:
-                return "USER_MISSED_LOW_RING_VOLUME";
-            case CallLog.Calls.USER_MISSED_NO_ANSWER:
-                return "USER_MISSED_NO_ANSWER";
-            case CallLog.Calls.USER_MISSED_SHORT_RING:
-                return "USER_MISSED_SHORT_RING";
-            case CallLog.Calls.ANSWERED_EXTERNALLY_TYPE:
-                return "ANSWERED_EXTERNALLY_TYPE";
             case CallLog.Calls.ANSWERED_EXTERNALLY_TYPE:
                 return "ANSWERED_EXTERNALLY_TYPE";
             default:

@@ -52,7 +52,6 @@ class CallRecord {
     this.formattedNumber,
     this.number,
     this.name,
-    this.missedReason,
     this.callType,
     this.duration,
   });
@@ -61,7 +60,6 @@ class CallRecord {
   String? number;
   String? callType;
   String? name;
-  String? missedReason;
   DateTime? date;
   int? duration;
 
@@ -70,7 +68,6 @@ class CallRecord {
     number = m['number'];
     callType = m['callType'];
     name = m['name'];
-    missedReason = m['missedReason'];
     date = DateTime.fromMillisecondsSinceEpoch(m['date'] ?? 0);
     duration = m['duration'];
   }
